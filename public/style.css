@@ -1,0 +1,24 @@
+.navbar {
+    font-family: 'Playfair Display', serif;
+    background-color: indigo;
+    color: white;
+}
+
+.nav-item {
+    padding: 10px 2px 10px 2px;
+}
+
+.nav-link, .navbar-brand {
+    color: white;
+}
+
+.nav-link:hover, .navbar-brand:hover {
+    color: gold;
+}
+
+.jumbotron {
+    background-image: url("./images/newspaper-jumbotron-background.jpg");
+    background-size: cover;
+    color: white;
+    font-family: 'Playfair Display', serif;
+  }
