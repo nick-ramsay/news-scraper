@@ -4,6 +4,8 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
+var db = require("./models");
+
 var PORT = 3000;
 
 var app = express();
@@ -18,37 +20,51 @@ var MONGODB_URI = /*process.env.mongolab - rectangular - 08989 || */"mongodb://l
 
 mongoose.connect(MONGODB_URI);
 
-app.get("/scrape", function(req,res) {
-    axios.get("https://news.google.com/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNRGxqTjNjd0VnSmxiaWdBUAE?hl=en-US&gl=US&ceid=US%3Aen").then(function(response){
+app.get("/scrape", function (req, res) {
+    axios.get("https://news.google.com/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNRGxqTjNjd0VnSmxiaWdBUAE?hl=en-US&gl=US&ceid=US%3Aen").then(function (response) {
         var $ = cheerio.load(response.data);
         //console.log(response.data);
 
-        $("article h3").each(function(i,element) {
+        $("article h3").each(function (i, element) {
             var result = {};
 
-            result.title = $(this)
-            .text();
+            result.headline = $(this)
+                .text();
 
-            result.link = "news.google.com" + $(this)
-            .children("a")
-            .attr("href");
+            result.summary = $(this)
+                .next()
+                .children("span")
+                .text();
 
-            result.description = $(this)
-            .next()
-            .children("span")
-            .text();
+            result.url = "news.google.com" + $(this)
+                .children("a")
+                .attr("href");
 
             result.photo_url = $(this)
-            .parents()
-            .parent()
-            .children("a")
-            .children("figure")
-            .children("img")
-            .attr("src");
-            console.log(result);
+                .parents()
+                .parent()
+                .children("a")
+                .children("figure")
+                .children("img")
+                .attr("src");
+
+            db.Article.create(result)
+                .then(function (dbArticle) {
+                    console.log(dbArticle);
+                })
+                .catch(function (err) {
+                    console.log(err);
+                })
         })
-    });
+    })
 });
+
+app.delete("/clear-articles", function(req,res) {
+    db.Article.deleteMany({});
+    console.log("Article API called!");
+});
+
+
 
 app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
