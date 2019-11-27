@@ -59,8 +59,11 @@ app.get("/scrape", function (req, res) {
     })
 });
 
-app.delete("/clear-articles", function(req,res) {
-    db.Article.deleteMany({});
+app.delete("/clear-articles", function (req, res) {
+    db.Article.remove({})
+        .then(function (dbArticle) {
+            console.log(dbArticle);
+        })
     console.log("Article API called!");
 });
 
