@@ -59,6 +59,17 @@ app.get("/scrape", function (req, res) {
     })
 });
 
+app.get("/articles", function (req, res) {
+    db.Article.find({})
+        .then(function (dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
+
 app.delete("/clear-articles", function (req, res) {
     db.Article.remove({})
         .then(function (dbArticle) {
