@@ -36,7 +36,7 @@ app.get("/scrape", function (req, res) {
                 .children("span")
                 .text();
 
-            result.url = "news.google.com" + $(this)
+            result.url = "https://news.google.com" + $(this)
                 .children("a")
                 .attr("href");
 
