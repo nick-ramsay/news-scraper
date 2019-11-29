@@ -15,6 +15,10 @@ var ArticleSchema = new Schema({
     },
     photo_url: {
         type: String
+    },
+    saved: {
+        type: Boolean,
+        default: false
     }
 });
 
