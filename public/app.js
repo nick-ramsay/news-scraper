@@ -92,6 +92,17 @@ function renderSavedArticles(data) {
     }
 }
 
+function initArticles() {
+    $.get("/articles", function (data) {
+        renderArticles(data);
+    });
+}
+
+function initSavedArticles() {
+    $.get("/articles", function (data) {
+        renderSavedArticles(data);
+    });
+}
 
 $(document).on("click", "#scrapeBtn", function () {
     $.ajax({
@@ -110,18 +121,7 @@ $(document).on("click", "#clearArticleBtn", function () {
         method: "DELETE",
         url: "/clear-articles",
         success: renderArticles()
-    }).then(function (res, req) {
-        console.log("Outer clicked delete!");
-        $.get("/articles", function (data) {
-            if (!data) {
-                console.log("Clicked delete!")
-                console.log(data);
-                renderArticles(data);
-            } else {
-                $("#articles").empty();
-            }
-        });
-    });
+    })
 });
 
 $(document).on("click", "#savedArticles", function () {
@@ -139,7 +139,8 @@ $(document).on("click", "#savedArticles", function () {
 $(document).on("click", ".saveArticleBtn", function () {
     $.ajax({
         method: "POST",
-        url: "/save-article/" + $(this).attr("data-id")
+        url: "/save-article/" + $(this).attr("data-id"),
+        success: initArticles()
     }).then(function (res, req) {
         $.get("/articles", function (data) {
             renderArticles(data);
@@ -150,15 +151,9 @@ $(document).on("click", ".saveArticleBtn", function () {
 $(document).on("click", ".removeArticleBtn", function () {
     $.ajax({
         method: "POST",
-        url: "/remove-article/" + $(this).attr("data-id")
-    }).then(function (res, req) {
-        $.get("/articles", function (data) {
-            renderSavedArticles(data);
-        });
+        url: "/remove-article/" + $(this).attr("data-id"),
+        success: initSavedArticles()
     })
 })
 
-window.onload = $.get("/articles", function (data) {
-    console.log(data);
-    renderArticles(data);
-});
+window.onload = initArticles();
