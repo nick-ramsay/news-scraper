@@ -56,7 +56,11 @@ app.get("/scrape", function (req, res) {
                 .catch(function (err) {
                     console.log(err);
                 })
-        })
+        });
+
+        res.send("Scrape Complete");
+        res.redirect("/");
+        
     })
 });
 
