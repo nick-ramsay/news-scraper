@@ -1,6 +1,8 @@
 var express = require("express");
 var mongoose = require("mongoose");
 
+ObjectId = require('mongodb').ObjectID;
+
 var axios = require("axios");
 var cheerio = require("cheerio");
 
@@ -19,7 +21,7 @@ app.use(express.static("public"));
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news-scraper";
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.get("/scrape", function (req, res) {
     axios.get("https://news.google.com/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNRGxqTjNjd0VnSmxiaWdBUAE?hl=en-US&gl=US&ceid=US%3Aen").then(function (response) {
@@ -60,7 +62,7 @@ app.get("/scrape", function (req, res) {
 
         res.send("Scrape Complete");
         res.redirect("/");
-        
+
     })
 });
 
@@ -81,6 +83,34 @@ app.delete("/clear-articles", function (req, res) {
             console.log(dbArticle);
         })
     console.log("Article API called!");
+});
+
+app.post("/save-article/:id", function (req, res) {
+    var savedID = req.params.id;
+    console.log(savedID);
+    db.Article.update({_id: ObjectId(savedID)}, { $set: { "saved": true } }, function (err, result) {
+        if (err) {
+            console.log('Error updating object: ' + err);
+            res.send({ 'error': 'An error has occurred' });
+        } else {
+            console.log('' + result + ' document(s) updated');
+        }
+    }).then(function (dbArticle) {
+        console.log(dbArticle);
+    })
+});
+
+app.post("/remove-article/:id", function (req, res) {
+    var savedID = req.params.id;
+    console.log(savedID);
+    db.Article.update({_id: ObjectId(savedID)}, { $set: { "saved": false } }, function (err, result) {
+        if (err) {
+            console.log('Error updating object: ' + err);
+            res.send({ 'error': 'An error has occurred' });
+        } else {
+            console.log('' + result + ' document(s) updated');
+        }
+    })
 });
 
 

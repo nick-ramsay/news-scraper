@@ -38,7 +38,7 @@ function renderArticles(data) {
                         var card = '<div class="card"></div>';
                         var cardRow = '<div class="row">';
                         var cardText = '<div class="col-md-8"><div class="card-body"><h5 class="card-title"><a data-id="' + data[i]._id + '" href="' + data[i].url + '">' + data[i].headline + '</a></h5><p class="card-text">' + data[i].summary + '</p></div></div>';
-                        var cardSaveButton = '<div class="col-md-1" style="margin: auto; text-align: center;"><button class="btn btn-primary saveArticleBtn" data-id="' + data[i]._id + '"><img src="./images/saveArticleIcon.png" style="max-height:24px; max-width: 24px;"></button></div>';
+                        var cardSaveButton = '<div class="col-md-1" style="margin: auto; text-align: center;"><button class="btn btn-danger saveArticleBtn" data-id="' + data[i]._id + '"><img src="./images/saveArticleIcon.png" style="max-height:24px; max-width: 24px;"></button></div>';
                         var cardImage = '<div class="col-md-3" style="text-align:center;vertical-align:center;"><img src="' + data[i].photo_url + '" class="card-img m-1" alt="' + data[i].headline + '" style="max-height: 150px; max-width:150px;"></div>';
                         cardRow += cardText;
                         switch (data[i].photo_url) {
@@ -72,7 +72,7 @@ function renderSavedArticles(data) {
                         var card = '<div class="card"></div>';
                         var cardRow = '<div class="row">';
                         var cardText = '<div class="col-md-8"><div class="card-body"><h5 class="card-title"><a data-id="' + data[i]._id + '" href="' + data[i].url + '">' + data[i].headline + '</a></h5><p class="card-text">' + data[i].summary + '</p></div></div>';
-                        var cardSaveButton = '<div class="col-md-1" style="margin: auto; text-align: center;"><button class="btn btn-danger saveArticleBtn" data-id="' + data[i]._id + '"><img src="./images/saveArticleIcon.png" style="max-height:24px; max-width: 24px;"></button></div>';
+                        var cardRemoveButton = '<div class="col-md-1" style="margin: auto; text-align: center;"><button class="btn btn-danger removeArticleBtn" data-id="' + data[i]._id + '">X</button></div>';
                         var cardImage = '<div class="col-md-3" style="text-align:center;vertical-align:center;"><img src="' + data[i].photo_url + '" class="card-img m-1" alt="' + data[i].headline + '" style="max-height: 150px; max-width:150px;"></div>';
                         cardRow += cardText;
                         switch (data[i].photo_url) {
@@ -82,7 +82,7 @@ function renderSavedArticles(data) {
                                 cardRow += cardImage;
                         }
 
-                        cardRow += cardSaveButton;
+                        cardRow += cardRemoveButton;
 
                         card += cardRow;
 
@@ -136,6 +136,29 @@ $(document).on("click", "#savedArticles", function () {
     });
 });
 
-$(document).on("click", "button", function() {
-    console.log($(this).attr("class"));
+$(document).on("click", ".saveArticleBtn", function () {
+    $.ajax({
+        method: "POST",
+        url: "/save-article/" + $(this).attr("data-id")
+    }).then(function (res, req) {
+        $.get("/articles", function (data) {
+            renderArticles(data);
+        });
+    })
 })
+
+$(document).on("click", ".removeArticleBtn", function () {
+    $.ajax({
+        method: "POST",
+        url: "/remove-article/" + $(this).attr("data-id")
+    }).then(function (res, req) {
+        $.get("/articles", function (data) {
+            renderSavedArticles(data);
+        });
+    })
+})
+
+window.onload = $.get("/articles", function (data) {
+    console.log(data);
+    renderArticles(data);
+});
