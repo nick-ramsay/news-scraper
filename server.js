@@ -76,9 +76,22 @@ app.get("/articles", function (req, res) {
         });
 });
 
+app.get("/comments/:articleID", function (req, res) {
+    db.Comment.find({ article_id: req.params.articleID })
+        .then(function (dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+})
 
 app.delete("/clear-articles", function (req, res) {
     db.Article.remove({})
+        .then(function (dbArticle) {
+            console.log(dbArticle);
+        })
+    db.Comment.remove({})
         .then(function (dbArticle) {
             console.log(dbArticle);
         })
@@ -88,7 +101,7 @@ app.delete("/clear-articles", function (req, res) {
 app.post("/save-article/:id", function (req, res) {
     var savedID = req.params.id;
     console.log(savedID);
-    db.Article.update({_id: ObjectId(savedID)}, { $set: { "saved": true } }, function (err, result) {
+    db.Article.update({ _id: ObjectId(savedID) }, { $set: { "saved": true } }, function (err, result) {
         if (err) {
             console.log('Error updating object: ' + err);
             res.send({ 'error': 'An error has occurred' });
@@ -103,7 +116,7 @@ app.post("/save-article/:id", function (req, res) {
 app.post("/remove-article/:id", function (req, res) {
     var savedID = req.params.id;
     console.log(savedID);
-    db.Article.update({_id: ObjectId(savedID)}, { $set: { "saved": false } }, function (err, result) {
+    db.Article.update({ _id: ObjectId(savedID) }, { $set: { "saved": false } }, function (err, result) {
         if (err) {
             console.log('Error updating object: ' + err);
             res.send({ 'error': 'An error has occurred' });
@@ -112,6 +125,28 @@ app.post("/remove-article/:id", function (req, res) {
         }
     })
 });
+
+app.post("/add-comment/:note/:articleID", function (req, res) {
+    var comment = {};
+    var userComment = req.params.note;
+    var articleID = req.params.articleID;
+    console.log(userComment);
+    console.log(articleID);
+
+    comment = {
+        comment: userComment,
+        article_id: articleID
+    }
+
+    db.Comment.create(comment)
+        .then(function (dbArticle) {
+            console.log(dbArticle);
+        })
+        .catch(function (err) {
+            console.log(err);
+        })
+});
+
 
 
 
