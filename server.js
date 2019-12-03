@@ -102,12 +102,13 @@ app.post("/save-article/:id", function (req, res) {
     var savedID = req.params.id;
     console.log(savedID);
     db.Article.update({ _id: ObjectId(savedID) }, { $set: { "saved": true } }, function (err, result) {
+        var response;
         if (err) {
-            console.log('Error updating object: ' + err);
-            res.send({ 'error': 'An error has occurred' });
+            response = {'status':200,'message':'An error has occurred'}
         } else {
-            console.log('' + result + ' document(s) updated');
+            response = {'status':404,'message':'' + result + ' document(s) updated'}
         }
+        res.send(response);
     }).then(function (dbArticle) {
         console.log(dbArticle);
     })
@@ -122,6 +123,7 @@ app.post("/remove-article/:id", function (req, res) {
             res.send({ 'error': 'An error has occurred' });
         } else {
             console.log('' + result + ' document(s) updated');
+            res.send(result);
         }
     })
 });

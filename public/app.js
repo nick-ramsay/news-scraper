@@ -159,8 +159,8 @@ $(document).on("click", "#savedArticles", function () {
 $(document).on("click", ".saveArticleBtn", function () {
     $.ajax({
         method: "POST",
-        url: "/save-article/" + $(this).attr("data-id"),
-        success: initArticles()
+        url: "/save-article/" + $(this).attr("data-id")
+        //success: initArticles()
     }).then(function (res, req) {
         $.get("/articles", function (data) {
             renderArticles(data);
@@ -171,8 +171,12 @@ $(document).on("click", ".saveArticleBtn", function () {
 $(document).on("click", ".removeArticleBtn", function () {
     $.ajax({
         method: "POST",
-        url: "/remove-article/" + $(this).attr("data-id"),
-        success: initSavedArticles()
+        url: "/remove-article/" + $(this).attr("data-id")
+        //success: initSavedArticles()
+    }).then(function (res, req) {
+        $.get("/articles", function (data) {
+            renderSavedArticles(data);
+        });
     })
 })
 
