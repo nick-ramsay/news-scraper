@@ -143,6 +143,7 @@ app.post("/add-comment/:note/:articleID", function (req, res) {
     db.Comment.create(comment)
         .then(function (dbArticle) {
             console.log(dbArticle);
+            res.send(dbArticle);
         })
         .catch(function (err) {
             console.log(err);
