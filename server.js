@@ -80,6 +80,7 @@ app.get("/comments/:articleID", function (req, res) {
     db.Comment.find({ article_id: req.params.articleID })
         .then(function (dbArticle) {
             res.json(dbArticle);
+            res.send(dbArticle);
         })
         .catch(function (err) {
             res.json(err);
