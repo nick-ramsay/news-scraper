@@ -11,13 +11,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <title>The Scrape</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
         <a class="navbar-brand" href="/">The Scrape</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,16 +33,16 @@
                     <a class="nav-link" id="savedArticles" href="#">Saved Articles</a>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-success btn-sm" id="scrapeBtn">Scrape New Articles</button>
+                    <button class="btn btn-sm mt-1" id="scrapeBtn">Scrape New Articles</button>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-danger btn-sm" id="clearArticleBtn">Clear Articles</button>
+                    <button class="btn btn-sm mt-1" id="clearArticleBtn">Clear Articles</button>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="jumbotron jumbotron-fluid">
-        <div class="container">
+        <div class="container pt-5 pb-5">
             <h1 class="display-4">Welcome to The Scrape</h1>
             <p class="lead">A site that aggregates current headlines into one, easy to use page.</p>
         </div>
