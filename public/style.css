@@ -1,5 +1,20 @@
 body {
     background-color: whitesmoke;
+    font-family: 'Quicksand', sans-serif;
+}
+
+a {
+    color: #582c83;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #2c1641;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 #scrapeBtn, #clearArticleBtn {
