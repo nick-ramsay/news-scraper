@@ -10,15 +10,15 @@ body {
 }
 
 #scrapeBtn:hover {
-    color: #0aa200;
+    background-color: #0aa200;
     border: 1.4px #0aa200 solid;
-    background-color: whitesmoke;
+    color: #ffffff;
 }
 
 #clearArticleBtn:hover {
-    color: #a50500;
+    background-color: #a50500;
     border: 1.4px #a50500 solid;
-    background-color: whitesmoke;
+    color: #ffffff;
 }
 
 .navbar {
