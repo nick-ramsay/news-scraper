@@ -37,9 +37,9 @@ function renderArticles(data) {
                     case false:
                         var card = '<div class="card mb-1">';
                         var cardRow = '<div class="row">';
-                        var cardText = '<div class="col-md-8"><div class="card-body"><h5 class="card-title"><a data-id="' + data[i]._id + '" href="' + data[i].url + '" target="_blank">' + data[i].headline + '</a></h5><p class="card-text">' + data[i].summary + '</p></div></div>';
-                        var cardSaveButton = '<div class="col-md-1" style="margin: auto; text-align: center;"><button class="btn btn-danger saveArticleBtn" data-id="' + data[i]._id + '"><img src="./images/saveArticleIcon.png" style="max-height:24px; max-width: 24px;"></button></div>';
-                        var cardImage = '<div class="col-md-3" style="text-align:center;vertical-align:center;"><img src="' + data[i].photo_url + '" class="card-img m-1" alt="' + data[i].headline + '" style="max-height: 150px; max-width:150px;"></div>';
+                        var cardText = '<div class="col-md-8"><div class="card-body"><h5 class="card-title"><a data-id="' + data[i]._id + '" href="' + data[i].url + '" target="_blank">' + data[i].headline + '</a></h5><p class="card-text">' + data[i].summary + '</p><div class="text-center"><button class="btn btn-sm saveArticleBtn" data-id="' + data[i]._id + '">Save Article</button></div></div></div>';
+                        var cardImage = '<div class="col-md-4" style="text-align:center;vertical-align:center;"><img src="' + data[i].photo_url + '" class="card-img m-1" alt="' + data[i].headline + '" style="max-height: 150px; max-width:150px;"></div>';
+                        
                         cardRow += cardText;
                         switch (data[i].photo_url) {
                             case undefined:
@@ -47,8 +47,6 @@ function renderArticles(data) {
                             default:
                                 cardRow += cardImage;
                         }
-
-                        cardRow += cardSaveButton;
 
                         card += cardRow;
 
@@ -71,11 +69,9 @@ function renderSavedArticles(data) {
                     case true:
                         var card = '<div class="card">';
                         var cardRow = '<div class="row">';
-                        var cardText = '<div class="col-md-7"><div class="card-body"><h5 class="card-title"><a data-id="' + data[i]._id + '"href="' + data[i].url + '" target="_blank">' + data[i].headline + '</a></h5><p class="card-text">' + data[i].summary + '</p></div></div>';
-                        var cardRemoveButton = '<div class="col-md-1" style="margin: auto; text-align: center;"><button class="btn btn-danger removeArticleBtn" data-id="' + data[i]._id + '">X</button></div>';
-                        var cardCommentButton = '<div class="col-md-1" style="margin: auto; text-align: center;"><button class="btn btn-primary commentBtn" data-toggle="modal" data-target="#commentModal' + data[i]._id + '" data-id="' + data[i]._id + '">Comment</button></div>';
-                        var commentModal = '<div class="modal" id="commentModal' + data[i]._id + '" tabindex="-1" role="dialog"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">'+ data[i].headline + '</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><p>Add a comment...</p><form><div class="form-group"><textarea class="form-control" rows="2" id="commentInput'+ data[i]._id + '" data-article-id="' + data[i]._id + '"></textarea></div></form><button type="button" class="btn btn-primary addCommentBtn" data-article-id="' + data[i]._id + '">Add Comment</button><p class="mt-2"><strong>Comments</strong></p><ul class="list-group list-group-flush" id="commentList' + data[i]._id + '"><li class="list-group-item list-group-item-primary data-article-id="' + data[i]._id + '">Test Comment!</li></ul></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div>';
-                        var cardImage = '<div class="col-md-3" style="text-align:center;vertical-align:center;"><img src="' + data[i].photo_url + '" class="card-img m-1" alt="' + data[i].headline + '" style="max-height: 150px; max-width:150px;"></div>';
+                        var cardText = '<div class="col-md-8"><div class="card-body"><h5 class="card-title"><a data-id="' + data[i]._id + '"href="' + data[i].url + '" target="_blank">' + data[i].headline + '</a></h5><p class="card-text">' + data[i].summary + '</p><div class="text-center"><button class="btn btn-sm ml-1 commentBtn" data-toggle="modal" data-target="#commentModal' + data[i]._id + '" data-id="' + data[i]._id + '">Comment</button><button class="btn btn-sm  ml-1 removeArticleBtn" data-id="' + data[i]._id + '">Remove</button></div></div></div>';
+                        var commentModal = '<div class="modal" id="commentModal' + data[i]._id + '" tabindex="-1" role="dialog"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">'+ data[i].headline + '</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><p>Add a comment...</p><form><div class="form-group"><textarea class="form-control" rows="2" id="commentInput'+ data[i]._id + '" data-article-id="' + data[i]._id + '"></textarea></div></form><button type="button" class="btn btn-sm addCommentBtn" data-article-id="' + data[i]._id + '">Add Comment</button><p class="mt-3"><strong>Comments</strong></p><ul class="list-group list-group-flush" id="commentList' + data[i]._id + '"><li class="list-group-item list-group-item-primary data-article-id="' + data[i]._id + '">Test Comment!</li></ul></div><div class="modal-footer"><button type="button" class="btn btn-sm closeModalBtn" data-dismiss="modal">Close</button></div></div></div></div>';
+                        var cardImage = '<div class="col-md-4" style="text-align:center;vertical-align:center;"><img src="' + data[i].photo_url + '" class="card-img m-1" alt="' + data[i].headline + '" style="max-height: 150px; max-width:150px;"></div>';
                         cardRow += cardText;
                         switch (data[i].photo_url) {
                             case undefined:
@@ -84,11 +80,6 @@ function renderSavedArticles(data) {
                                 cardRow += cardImage;
                         }
                         
-                        //Comment HTML: <li class="list-group-item list-group-item-primary">Test Comment!</li>
-
-
-                        cardRow += cardCommentButton;
-                        cardRow += cardRemoveButton;
                         cardRow += commentModal;
 
                         card += cardRow;

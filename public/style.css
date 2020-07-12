@@ -12,16 +12,19 @@ a:hover {
     color: #2c1641;
 }
 
-.btn:focus {
+.btn:focus, .form-control:focus {
     outline: none;
     box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: #582c83;
 }
 
 #scrapeBtn, #clearArticleBtn {
     background-color: #582c83;
     border: 1.4px white solid;
     color: #ffffff;
-    font-family: 'Quicksand', sans-serif;
 }
 
 #scrapeBtn:hover {
@@ -34,6 +37,34 @@ a:hover {
     background-color: #a50500;
     border: 1.4px #a50500 solid;
     color: #ffffff;
+}
+
+.saveArticleBtn, .commentBtn, .removeArticleBtn, .addCommentBtn, .closeModalBtn {
+    color: #582c83;
+    border: 1.4px #582c83 solid;
+    background-color: #ffffff;
+    font-weight: bold;
+}
+
+.saveArticleBtn:hover {
+    color: #000000;
+    border: 1.4px gold solid;
+    background-color: gold;
+    font-weight: bold;
+}
+
+.commentBtn:hover, .addCommentBtn:hover {
+    color: #ffffff;
+    border: 1.4px #582c83 solid;
+    background-color: #582c83;
+    font-weight: bold;
+}
+
+.removeArticleBtn:hover, .closeModalBtn:hover {
+    color: #ffffff;
+    border: 1.4px #a50500 solid;
+    background-color: #a50500;
+    font-weight: bold;
 }
 
 .navbar {
