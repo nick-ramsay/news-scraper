@@ -1,6 +1,6 @@
 # The Scrape
 
-Heroku Deployment: https://blooming-savannah-49090.herokuapp.com/
+Heroku Deployment: https://searching-google-news.herokuapp.com/
 
 ## Problem Summary 
 - As someone who enjoys reading the news, I don't like having to browser multiple sites to find interesting stories.
@@ -22,7 +22,7 @@ Heroku Deployment: https://blooming-savannah-49090.herokuapp.com/
 
 ## Instructions
 
-The Scrape is deployed on Heroku for usage [here](https://blooming-savannah-49090.herokuapp.com/).
+The Scrape is deployed on Heroku for usage [here](https://searching-google-news.herokuapp.com/).
 
 ![The Scrape Homepage](https://github.com/nick-ramsay/readme-images/blob/master/the-scrape/the-scrape-home.jpg?raw=true)
 

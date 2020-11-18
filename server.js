@@ -12,16 +12,25 @@ var PORT = process.env.PORT || 3000;
 
 var app = express();
 
+require("dotenv").config();
+const keys = require('./keys');
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
 
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+//MongoDB Atlas connection...
+const connection = (process.env.NODE_ENV === "production" ? process.env.MONGO_URI : keys.mongodb.mongo_uri);
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news-scraper";
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+if (process.env.NODE_ENV === "production") {
+    mongoose.connect(connection, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+      .then(() => console.log("Database Connected Successfully"))
+      .catch(err => console.log(err));
+  } else {
+    mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/searching-google-news", { useNewUrlParser: true, useUnifiedTopology: true });
+  }
+  
 
 app.get("/scrape", function (req, res) {
     axios.get("https://news.google.com/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNRGxqTjNjd0VnSmxiaWdBUAE?hl=en-US&gl=US&ceid=US%3Aen").then(function (response) {
